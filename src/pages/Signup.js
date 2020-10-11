@@ -1,8 +1,12 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 
 export default function Signup() {
 
   const [state, setState] = useState({
+    // name: "",
+    // lastname: "",
+    // rut: "",
     email : "",
     password : "",
     confirmPassword: "",
@@ -23,7 +27,19 @@ export default function Signup() {
     } else {
         console.log('Passwords do not match');
     }
-}
+  }
+
+  async function sendDataToBack() {
+    if (state.password === state.confirmPassword) {
+      const payload = {
+        "email": state.email,
+        "password": state.password,
+      }
+      await axios.post('http://localhost:3977/api/v1/sign-up', payload)
+
+    }
+  }
+
 
   return (
     <div className="card col-12 col-lg-4 login-card mt-2 hv-center">
@@ -62,6 +78,7 @@ export default function Signup() {
           <button
               type="submit"
               className="btn btn-primary"
+              onClick={sendDataToBack}
           >
               Registrarse
           </button>
