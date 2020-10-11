@@ -7,9 +7,6 @@ export default function Signup() {
     password : "",
     confirmPassword: "",
   });
-  // const [email, setEmail] = React.useState('')
-  // const [password, setPassword] = React.useState('')
-  // const [confirmPassword, setconfirmPassword] = React.useState('')
 
   function handleChange (event) {
     const {id , value} = event.target
