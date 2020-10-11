@@ -3,6 +3,8 @@
 import Layout from "../layouts/Layout";
 
 // Admin Pages
+import Login from '../pages/Login'
+import Signup from '../pages/Signup'
 
 // Pages
 import Home from "../pages/Home";
@@ -18,8 +20,18 @@ const routes = [
     exact: false,
     routes: [
       {
-        path: "/",
+        path: "/home",
         component: Home,
+        exact: true,
+      },
+      {
+        path: "/login",
+        component: Login,
+        exact: true,
+      },
+      {
+        path: "/registro",
+        component: Signup,
         exact: true,
       },
 
