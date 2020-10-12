@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import routes from "./config/routes";
+import { ToastContainer } from "react-toastify";
 import "./App.scss";
 
 /* recibe la configuracion de las rutas  y tambien las subrutas  */
@@ -12,6 +13,17 @@ function App() {
           <RouteWithSubRoutes key={index} {...route} />
         ))}
       </Switch>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </Router>
   );
 }

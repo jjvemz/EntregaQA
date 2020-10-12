@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Button, Input } from "antd";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { toast } from 'react-toastify'
 import { signUpApi } from '../../api/user';
 import "./RegisterForm.scss";
 
@@ -42,9 +43,11 @@ export default function RegisterForm() {
       try{
         const result = await signUpApi(formData);
         if (!result.ok) {
-          console.log("error al realizar la request");
+          console.log(result.message);
+          toast.error(result.message)
         }else{
-          console.log("enviado");
+          toast.success(result.message)
+          console.log(result.message);
         }
       } catch (error){
         console.log(error);
