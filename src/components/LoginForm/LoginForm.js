@@ -1,12 +1,22 @@
 import React from "react";
-import { Form, Button, Input } from "antd";
+import { Form, Button, Input, Row, Col } from "antd";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { signInApi } from '../../api/user';
-import { toast } from 'react-toastify'
-import "./LoginForm";
+import { signInApi } from "../../api/user";
+import { toast } from "react-toastify";
+import "./LoginForm.scss";
 
 export default function LoginForm() {
+
+  const layout = {
+    labelCol: { span: 6 },
+    wrapperCol: { span: 18 },
+  };
+
+  const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
+  };
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -21,16 +31,20 @@ export default function LoginForm() {
     onSubmit: async (formData) => {
       const result = await signInApi(formData);
       if (result.message) {
-        toast.error(result.message)
+        toast.error(result.message);
+      } else if (result === "Failed to fetch"){
+        toast.error("No se pudo iniciar sesión");
       } else {
-        toast.success("Inicio de sesión correcto")
+        toast.success("Inicio de sesion correcto")
       }
     },
   });
 
   return (
-    <Form className="login-form" onFinish={formik.handleSubmit}>
-      <h2>Inicie sesion</h2>
+    <Form {...layout} className="login-form" onFinish={formik.handleSubmit}>
+
+      <h2>Inicie sesión</h2>
+
       <Form.Item
         label="Email"
         name="email"
@@ -41,7 +55,7 @@ export default function LoginForm() {
         <Input />
       </Form.Item>
       <Form.Item
-        label="Password"
+        label="Contraseña"
         name="password"
         value={formik.values.password}
         onChange={formik.handleChange}
@@ -50,7 +64,7 @@ export default function LoginForm() {
         <Input.Password />
       </Form.Item>
 
-      <Form.Item>
+      <Form.Item {...tailLayout} >
         <Button type="primary" htmlType="submit">
           Iniciar sesión
         </Button>

@@ -1,11 +1,11 @@
 // Layout
-
 import Layout from "../layouts/Layout";
 
 // Admin Pages
 
 // Pages
 import Home from "../pages/Home";
+import Auth from '../pages/Auth/Auth';
 import RegisterForm from '../components/RegisterForm/RegisterForm';
 import LoginForm from '../components/LoginForm/LoginForm';
 
@@ -22,6 +22,11 @@ const routes = [
       {
         path: "/home",
         component: Home,
+        exact: true,
+      },
+      {
+        path: "/auth",
+        component: Auth,
         exact: true,
       },
       {

@@ -7,6 +7,16 @@ import { signUpApi } from '../../api/user';
 import "./RegisterForm.scss";
 
 export default function RegisterForm() {
+
+  const layout = {
+    labelCol: { span: 10 },
+    wrapperCol: { span: 14 },
+  };
+
+  const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
+  };
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -57,8 +67,8 @@ export default function RegisterForm() {
 
   return (
     <>
-      <h2>Registrate para acceder a las funcionalidades!</h2>
-      <Form className="register-form" onFinish={formik.handleSubmit}>
+      <h2 className="register-form-title">Crear una cuenta</h2>
+      <Form {...layout} className="register-form" onFinish={formik.handleSubmit}>
         <Form.Item
           label="Nombre"
           name="name"
@@ -96,7 +106,7 @@ export default function RegisterForm() {
           <Input />
         </Form.Item>
         <Form.Item
-          label="Password"
+          label="Contraseña"
           name="password"
           value={formik.values.password}
           onChange={formik.handleChange}
@@ -114,7 +124,7 @@ export default function RegisterForm() {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item>
+        <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit">
             Registrarse
           </Button>
