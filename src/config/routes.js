@@ -6,8 +6,8 @@ import Layout from "../layouts/Layout";
 // Pages
 import Home from "../pages/Home";
 import Auth from '../pages/Auth/Auth';
-import RegisterForm from '../components/RegisterForm/RegisterForm';
-import LoginForm from '../components/LoginForm/LoginForm';
+// import RegisterForm from '../components/RegisterForm/RegisterForm';
+// import LoginForm from '../components/LoginForm/LoginForm';
 
 // Other
 import Error404 from "../pages/Error404";
@@ -27,16 +27,6 @@ const routes = [
       {
         path: "/auth",
         component: Auth,
-        exact: true,
-      },
-      {
-        path: "/registro",
-        component: RegisterForm,
-        exact: true,
-      },
-      {
-        path: "/login",
-        component: LoginForm,
         exact: true,
       },
 

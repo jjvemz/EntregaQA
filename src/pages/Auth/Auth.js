@@ -7,16 +7,17 @@ import "./Auth.scss"
 
 export default function Auth() {
 
-  const [showLogin, setShowLogin] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
 
   return (
+
     <div className="auth">
       <img src={catcakelogo} alt="Logo de Catcake"></img>
       <div className="container-form">
         {showLogin ? (
           <LoginForm />
         ) : (
-          <RegisterForm/>
+          <RegisterForm setShowLogin={setShowLogin}/>
         )}
       </div>
       <div className="change-form">

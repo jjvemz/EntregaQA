@@ -6,7 +6,8 @@ import { toast } from 'react-toastify'
 import { signUpApi } from '../../api/user';
 import "./RegisterForm.scss";
 
-export default function RegisterForm() {
+export default function RegisterForm(props) {
+  const {setShowLogin} = props;
 
   const layout = {
     labelCol: { span: 10 },
@@ -57,6 +58,7 @@ export default function RegisterForm() {
           toast.error(result.message)
         }else{
           toast.success(result.message)
+          setShowLogin(true)
           console.log(result.message);
         }
       } catch (error){
