@@ -25,5 +25,4 @@ function RouteWithSubRoutes(route) {
     />
   );
 }
-
 export default App;

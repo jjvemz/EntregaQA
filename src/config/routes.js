@@ -5,6 +5,7 @@ import Layout from "../layouts/Layout";
 // Admin Pages
 import Login from '../pages/Login'
 import Signup from '../pages/Signup'
+import RegisterForm from '../components/RegisterForm/RegisterForm';
 
 // Pages
 import Home from "../pages/Home";
@@ -32,6 +33,11 @@ const routes = [
       {
         path: "/registro",
         component: Signup,
+        exact: true,
+      },
+      {
+        path: "/signup",
+        component: RegisterForm,
         exact: true,
       },
 
