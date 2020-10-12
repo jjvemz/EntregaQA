@@ -3,12 +3,11 @@
 import Layout from "../layouts/Layout";
 
 // Admin Pages
-import Login from '../pages/Login'
-import Signup from '../pages/Signup'
-import RegisterForm from '../components/RegisterForm/RegisterForm';
 
 // Pages
 import Home from "../pages/Home";
+import RegisterForm from '../components/RegisterForm/RegisterForm';
+import LoginForm from '../components/LoginForm/LoginForm';
 
 // Other
 import Error404 from "../pages/Error404";
@@ -26,18 +25,13 @@ const routes = [
         exact: true,
       },
       {
-        path: "/login",
-        component: Login,
-        exact: true,
-      },
-      {
         path: "/registro",
-        component: Signup,
+        component: RegisterForm,
         exact: true,
       },
       {
-        path: "/signup",
-        component: RegisterForm,
+        path: "/login",
+        component: LoginForm,
         exact: true,
       },
 
