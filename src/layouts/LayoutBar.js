@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { Route, Switch } from "react-router-dom";
-import { Layout, Menu } from "antd";
+import { Layout } from "antd";
 import MenuTop from '../components/MenuTop/MenuTop'
 import MenuSider from '../components/MenuSider/MenuSider'
 
@@ -9,14 +9,14 @@ import "./LayoutBar.scss";
 export default function LayoutBar(props) {
 
   const { routes } = props;
-  const [menuCollapsed, setMenuCollapsed] = useState(false)
+  const [menuCollapsed, setMenuCollapsed] = useState(true)
   const { Header, Content, Footer } = Layout;
 
   return (
     <Layout>
       <MenuSider menuCollapsed={menuCollapsed}/>
       <Layout className="layout-admin" style={{marginLeft: menuCollapsed ? "80px" : "200px"}}>
-        <Header>
+        <Header className="layout-admin__header">
           <MenuTop menuCollapsed={menuCollapsed} setMenuCollapsed={setMenuCollapsed}/>
         </Header>
         <Content className="layout-admin__content">

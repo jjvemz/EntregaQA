@@ -12,21 +12,20 @@
   display: flex;
 
   button {
-    color: #FFFFCB;
+    color: #FFFFFF;
 
     &:hover {
-      color: yellow;
+      color: #F3F4A8;
     }
     &:focus,
     &:active {
-      color: #FFFFCB;
+      color: #FFFFFF;
     }
   }
 
   &__left {
     &-logo {
       width: 120px;
-      margin-left: -10px;
     }
   }
 

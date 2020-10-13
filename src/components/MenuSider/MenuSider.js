@@ -6,7 +6,7 @@ import './MenuSider.scss'
 
 export default function MenuSider(props) {
 
-  const { menuCollapsed, location } = props;
+  const { menuCollapsed } = props;
   const { Sider } = Layout;
   return (
     <Sider className="menu-sider" collapsed={menuCollapsed}>
@@ -14,7 +14,7 @@ export default function MenuSider(props) {
         mode="inline"
         defaultSelectedKeys={["1"]}
       >
-        <Menu.Item key="1">
+        <Menu.Item key="1" style={{marginTop: 10}}>
           <Link to="/factura">
           <FileTextOutlined />
             <span className="nav-text">Facturas</span>
