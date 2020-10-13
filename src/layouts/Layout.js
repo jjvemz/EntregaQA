@@ -7,6 +7,7 @@ import { Row, Col } from "antd";
 import "./Layout.scss";
 
 export default function Layout(props) {
+
   const { routes } = props;
   return (
     <>

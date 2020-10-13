@@ -4,8 +4,6 @@ import Layout from "../layouts/Layout";
 // Admin Pages
 
 // Pages
-import Home from "../pages/Home";
-import Auth from '../pages/Auth/Auth';
 import Factura from '../components/Factura/Factura'
 // import RegisterForm from '../components/RegisterForm/RegisterForm';
 // import LoginForm from '../components/LoginForm/LoginForm';
@@ -14,25 +12,34 @@ import Factura from '../components/Factura/Factura'
 import Error404 from "../pages/Error404";
 
 //sistema de rutas
+// const routes = [
+//       {
+//         path: "/factura",
+//         component: Factura,
+//         exact: true,
+//       },
+//       {
+//         component: Error404,
+//       },
+// ];
+
 const routes = [
-      // {
-      //   path: "/home",
-      //   component: Home,
-      //   exact: true,
-      // },
-      {
-        path: "/auth",
-        component: Auth,
-        exact: true,
-      },
+  {
+    path: "/",
+    component: Layout,
+    exact: false,
+    routes: [
       {
         path: "/factura",
         component: Factura,
         exact: true,
       },
+
       {
         component: Error404,
       },
+    ],
+  },
 ];
 
 export default routes;

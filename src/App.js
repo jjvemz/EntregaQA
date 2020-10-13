@@ -2,10 +2,9 @@ import React, {useState, useEffect, useMemo } from "react";
 import { ToastContainer } from "react-toastify";
 import Auth from "./pages/Auth/Auth";
 import Navigation from "./config/Navigation";
-import { getAccessTokenApi } from "./api/auth";
+import { getAccessTokenApi, decodeToken } from "./api/auth";
 import AuthContext from "./context/AuthContext";
 import "./App.scss";
-import Factura from "./components/Factura/Factura";
 
 function App() {
 
@@ -16,9 +15,8 @@ function App() {
     if(!token) {
       setAuth(null);
     } else {
-      setAuth(token)
+      setAuth(decodeToken(token))
     }
-    console.log(token);
   }, [])
 
   const logout = () => {
@@ -43,8 +41,7 @@ function App() {
   return (
     <>
       <AuthContext.Provider value={authData}>
-        {/* {!auth ? <Auth /> : <Navigation />} */}
-        {!auth ? <Auth /> : <Factura />}
+        {!auth ? <Auth /> : <Navigation />}
         <ToastContainer
           position="top-right"
           autoClose={5000}
