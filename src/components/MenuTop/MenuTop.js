@@ -2,12 +2,13 @@ import React from 'react';
 import { logout } from "../../api/auth";
 import CatcakeLogo from "../../assets/layoutLogo.png"
 import { Button } from "antd";
-import { PoweroffOutlined, MenuOutlined } from '@ant-design/icons';
+import { PoweroffOutlined, MenuOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import "./MenuTop.scss"
 
 export default function MenuTop(props) {
 
   const { menuCollapsed, setMenuCollapsed } = props;
+
   const logoutUser = () => {
     logout();
     window.location.reload();
@@ -22,11 +23,11 @@ export default function MenuTop(props) {
           alt="CatCake Logo"
         />
         <Button type="link" onClick={() => setMenuCollapsed(!menuCollapsed)}>
-        <MenuOutlined />
+          {menuCollapsed ?  <MenuOutlined /> : <MenuUnfoldOutlined/>}
         </Button>
       </div>
       <div className="menu-top__right">
-        <Button type="link">
+        <Button type="link" onClick={logoutUser}>
         <PoweroffOutlined />
         </Button>
       </div>
