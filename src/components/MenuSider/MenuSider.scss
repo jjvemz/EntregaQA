@@ -1,0 +1,13 @@
+@import "../../App.scss";
+
+.menu-sider {
+  position: fixed;
+  left: 0;
+  top: 65px;
+  height: 100vh;
+  overflow: auto;
+
+}
+.ant-layout-sider{
+  background: #FFFFFF;
+}

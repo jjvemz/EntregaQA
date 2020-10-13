@@ -4,24 +4,29 @@
   background: #6A4724;
 }
 
+// .ant-btn-link{
+//   color: #FFFFCB;
+// }
+
 .menu-top {
   display: flex;
 
-  // button {
-  //   color: $font-light;
+  button {
+    color: #FFFFCB;
 
-  //   &:hover {
-  //     color: $primary-color;
-  //   }
-  //   &:focus,
-  //   &:active {
-  //     color: $font-light;
-  //   }
-  // }
+    &:hover {
+      color: yellow;
+    }
+    &:focus,
+    &:active {
+      color: #FFFFCB;
+    }
+  }
 
   &__left {
     &-logo {
       width: 120px;
+      margin-left: -10px;
     }
   }
 
