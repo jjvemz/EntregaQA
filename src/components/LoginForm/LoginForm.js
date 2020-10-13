@@ -1,9 +1,10 @@
 import React from "react";
 import { Form, Button, Input } from "antd";
-import { setNestedObjectValues, useFormik } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import {ACCESS_TOKEN, REFRESH_TOKEN} from '../../utils/constants'
 import { signInApi } from "../../api/user";
+import { decodeToken } from "../../api/auth"
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import "./LoginForm.scss";
@@ -42,7 +43,7 @@ export default function LoginForm() {
         const { accessToken, refreshToken } = result;
         localStorage.setItem(ACCESS_TOKEN, accessToken);
         localStorage.setItem(REFRESH_TOKEN, refreshToken);
-        setUser(accessToken)
+        setUser(decodeToken(accessToken))
         toast.success("Inicio de sesion correcto")
       }
     },

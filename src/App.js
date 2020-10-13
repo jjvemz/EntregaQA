@@ -5,6 +5,7 @@ import Navigation from "./config/Navigation";
 import { getAccessTokenApi } from "./api/auth";
 import AuthContext from "./context/AuthContext";
 import "./App.scss";
+import Factura from "./components/Factura/Factura";
 
 function App() {
 
@@ -42,7 +43,8 @@ function App() {
   return (
     <>
       <AuthContext.Provider value={authData}>
-        {!auth ? <Auth /> : <Navigation />}
+        {/* {!auth ? <Auth /> : <Navigation />} */}
+        {!auth ? <Auth /> : <Factura />}
         <ToastContainer
           position="top-right"
           autoClose={5000}

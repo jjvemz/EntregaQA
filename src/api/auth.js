@@ -12,6 +12,10 @@ export function getAccessTokenApi() {
   return willExpireToken(accessToken) ? null : accessToken;
 }
 
+export function decodeToken(ACCESS_TOKEN) {
+  return jwtDecode(ACCESS_TOKEN);
+}
+
 export function getRefreshTokenApi() {
   const refreshToken = localStorage.getItem(REFRESH_TOKEN);
 
