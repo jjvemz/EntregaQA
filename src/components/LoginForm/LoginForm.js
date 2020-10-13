@@ -1,8 +1,10 @@
 import React from "react";
 import { Form, Button, Input } from "antd";
-import { useFormik } from "formik";
+import { setNestedObjectValues, useFormik } from "formik";
 import * as Yup from "yup";
+import {ACCESS_TOKEN, REFRESH_TOKEN} from '../../utils/constants'
 import { signInApi } from "../../api/user";
+import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import "./LoginForm.scss";
 
@@ -16,6 +18,8 @@ export default function LoginForm() {
   const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
   };
+
+  const {setUser} = useAuth();
 
   const formik = useFormik({
     initialValues: {
@@ -35,6 +39,10 @@ export default function LoginForm() {
       } else if (result === "Failed to fetch"){
         toast.error("No se pudo iniciar sesión");
       } else {
+        const { accessToken, refreshToken } = result;
+        localStorage.setItem(ACCESS_TOKEN, accessToken);
+        localStorage.setItem(REFRESH_TOKEN, refreshToken);
+        setUser(accessToken)
         toast.success("Inicio de sesion correcto")
       }
     },

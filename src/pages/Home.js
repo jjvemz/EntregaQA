@@ -9,6 +9,8 @@ export default function Home() {
         content="Home | Web pasteleria"
         data-react-helmet="true"
       />
+
+      <p>estas en home</p>
     </>
   );
 }
