@@ -23,12 +23,16 @@ export default function MenuTop(props) {
           alt="CatCake Logo"
         />
         <Button type="link" onClick={() => setMenuCollapsed(!menuCollapsed)}>
-          {menuCollapsed ?  <MenuOutlined /> : <MenuUnfoldOutlined/>}
+          <div style={{ fontSize: "20px" }}>
+            {menuCollapsed ?  <MenuOutlined /> : <MenuUnfoldOutlined/>}
+          </div>
         </Button>
       </div>
       <div className="menu-top__right">
         <Button type="link" onClick={logoutUser}>
-        <PoweroffOutlined />
+          <div style={{ fontSize: "20px" }}>
+            <PoweroffOutlined />
+          </div>
         </Button>
       </div>
     </div>
