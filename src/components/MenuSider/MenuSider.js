@@ -6,7 +6,7 @@ import './MenuSider.scss'
 
 export default function MenuSider(props) {
 
-  const { menuCollapsed, location } = props;
+  const { menuCollapsed } = props;
   const { Sider } = Layout;
   return (
     <Sider className="menu-sider" collapsed={menuCollapsed}>

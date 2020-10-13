@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { Route, Switch } from "react-router-dom";
-import { Layout, Menu } from "antd";
+import { Layout } from "antd";
 import MenuTop from '../components/MenuTop/MenuTop'
 import MenuSider from '../components/MenuSider/MenuSider'
 
