@@ -1,10 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import routes from "./config/routes";
-import "./App.scss";
+import routes from "./routes";
 
-/* recibe la configuracion de las rutas  y tambien las subrutas  */
-function App() {
+export default function Navigation() {
   return (
     <Router>
       <Switch>
@@ -22,8 +20,11 @@ function RouteWithSubRoutes(route) {
       path={route.path}
       exact={route.exact}
       render={(props) => <route.component routes={route.routes} {...props} />}
+      // render={(props) => {
+      //   <route.layout>
+      //     <route.component routes={route.routes} {...props} />
+      //   </route.layout>
+      // }}
     />
   );
 }
-
-export default App;

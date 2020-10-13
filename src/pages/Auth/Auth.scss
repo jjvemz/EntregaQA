@@ -1,0 +1,47 @@
+@import "../../App.scss";
+
+.auth {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #FFFFCB;
+
+  img {
+    width: 150px;
+    padding-bottom: 10px;
+  }
+
+  .container-form {
+    width: 400px;
+    // background-color:;
+    padding: 20px 10px;
+    border: 2px solid #6A4724;
+    border-radius: 5px;
+    background-color: #ffffd1;
+  }
+
+  .change-form {
+    margin-top: 10px;
+    width: 400px;
+    background-color: #ffffd1;
+    padding: 10px 50px;
+    border: 1px solid #6A4724;
+    text-align: center;
+    border-radius: 5px;
+
+    p{
+      margin: 0px;
+    }
+    span {
+      color: #6A4724;
+      font-weight: bold;
+      margin-left: 5px;
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+  }
+}
