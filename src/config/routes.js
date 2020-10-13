@@ -1,5 +1,5 @@
 // Layout
-import Layout from "../layouts/Layout";
+import LayoutBar from "../layouts/LayoutBar";
 
 // Admin Pages
 
@@ -26,7 +26,7 @@ import Error404 from "../pages/Error404";
 const routes = [
   {
     path: "/",
-    component: Layout,
+    component: LayoutBar,
     exact: false,
     routes: [
       {

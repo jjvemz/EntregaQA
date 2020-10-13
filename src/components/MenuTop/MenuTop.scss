@@ -1,0 +1,32 @@
+@import "../../App.scss";
+
+.ant-layout-header{
+  background: #6A4724;
+}
+
+.menu-top {
+  display: flex;
+
+  // button {
+  //   color: $font-light;
+
+  //   &:hover {
+  //     color: $primary-color;
+  //   }
+  //   &:focus,
+  //   &:active {
+  //     color: $font-light;
+  //   }
+  // }
+
+  &__left {
+    &-logo {
+      width: 120px;
+    }
+  }
+
+  &__right {
+    position: absolute;
+    right: 0;
+  }
+}
