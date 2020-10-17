@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu} from 'antd';
-import { FileTextOutlined, RiseOutlined  } from '@ant-design/icons';
+import { UserOutlined, FileTextOutlined, RiseOutlined  } from '@ant-design/icons';
 import './MenuSider.scss'
 
 export default function MenuSider(props) {
@@ -15,12 +15,18 @@ export default function MenuSider(props) {
         defaultSelectedKeys={["1"]}
       >
         <Menu.Item key="1" style={{marginTop: 10}}>
+          <Link to="/perfil">
+          <UserOutlined />
+            <span className="nav-text">Mi Perfil</span>
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="2" style={{marginTop: 10}}>
           <Link to="/factura">
           <FileTextOutlined />
             <span className="nav-text">Facturas</span>
           </Link>
         </Menu.Item>
-        <Menu.Item key="2">
+        <Menu.Item key="3">
           <Link to="/gastos">
           <RiseOutlined />
             <span className="nav-text">Gastos</span>

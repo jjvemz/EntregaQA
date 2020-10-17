@@ -36,6 +36,8 @@ function App() {
     [auth]
   );
 
+  if (auth === undefined) return null;
+
   console.log(authData);
 
   return (
