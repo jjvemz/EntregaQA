@@ -43,16 +43,6 @@ export default function Factura() {
     }),
     onSubmit: async (formData) => {
       const result = await signInApi(formData);
-      if (result.message) {
-        toast.error(result.message);
-      } else if (result === "Failed to fetch"){
-        toast.error("No se pudo iniciar sesión");
-      } else {
-        const { accessToken, refreshToken } = result;
-        localStorage.setItem(ACCESS_TOKEN, accessToken);
-        localStorage.setItem(REFRESH_TOKEN, refreshToken);
-        setUser(decodeToken(accessToken))
-        toast.success("Inicio de sesion correcto")
       }
     },
   });
