@@ -42,9 +42,9 @@ export default function Factura() {
         .required('Ingrese el Nombre de la empresa'),
     }),
     onSubmit: async (formData) => {
-      const result = await signInApi(formData);
+      // const result = await signInApi(formData);
+      console.log("He hecho click en submit")
       }
-    },
   });
   const auth = useAuth()
   console.log(auth);
