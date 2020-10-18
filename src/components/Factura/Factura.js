@@ -1,10 +1,10 @@
-import React from 'react'
+import React from "react";
 import { Form, Button, Input } from "antd";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {ACCESS_TOKEN, REFRESH_TOKEN} from '../../utils/constants'
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants";
 import { signInApi } from "../../api/user";
-import { decodeToken } from "../../api/auth"
+import { decodeToken } from "../../api/auth";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 
@@ -18,7 +18,7 @@ export default function Factura() {
     wrapperCol: { offset: 8, span: 16 },
   };
 
-  const {setUser} = useAuth();
+  const { setUser } = useAuth();
 
   const formik = useFormik({
     initialValues: {
@@ -30,27 +30,24 @@ export default function Factura() {
     },
     validationSchema: Yup.object({
       UserName: Yup.string()
-        .max(30, 'Debe tener 30 caracteres o menos')
-        .required('Ingrese el Nombre'),
+        .max(30, "Debe tener 30 caracteres o menos")
+        .required("Ingrese el Nombre"),
       EnterpriseName: Yup.string()
-        .max(20, 'Debe tener 20 caracteres o menos')
-        .required('Ingrese el Nombre de la empresa'),
-      MountOfBill: Yup.number()
-        .required('Ingrese el monto de su factura'),
+        .max(20, "Debe tener 20 caracteres o menos")
+        .required("Ingrese el Nombre de la empresa"),
+      MountOfBill: Yup.number().required("Ingrese el monto de su factura"),
       TypeOfBill: Yup.string()
-        .max(20, 'Debe tener 20 caracteres o menos')
-        .required('Ingrese el Nombre de la empresa'),
+        .max(20, "Debe tener 20 caracteres o menos")
+        .required("Ingrese el Nombre de la empresa"),
     }),
     onSubmit: async (formData) => {
       const result = await signInApi(formData);
-      }
     },
   });
-  const auth = useAuth()
+  const auth = useAuth();
   console.log(auth);
   return (
     <Form {...layout} className="login-form" onFinish={formik.handleSubmit}>
-
       <h2>Factura</h2>
 
       <Form.Item
@@ -92,11 +89,11 @@ export default function Factura() {
         <Input />
       </Form.Item>
 
-      <Form.Item {...tailLayout} >
+      <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit">
           Ingresar datos
         </Button>
       </Form.Item>
     </Form>
-  )
+  );
 }

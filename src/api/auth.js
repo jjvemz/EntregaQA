@@ -29,24 +29,24 @@ export function getRefreshTokenApi() {
 export function refreshAccessTokenApi(refreshToken) {
   const url = `${basePath}/${apiVersion}/refresh-access-token`;
   const bodyObj = {
-    refreshToken: refreshToken
+    refreshToken: refreshToken,
   };
   const params = {
     method: "POST",
     body: JSON.stringify(bodyObj),
     headers: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   };
 
   fetch(url, params)
-    .then(response => {
+    .then((response) => {
       if (response.status !== 200) {
         return null;
       }
       return response.json();
     })
-    .then(result => {
+    .then((result) => {
       if (!result) {
         logout();
       } else {
