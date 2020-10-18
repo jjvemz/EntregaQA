@@ -8,6 +8,8 @@ import { decodeToken } from "../../api/auth";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 
+import "./Factura.scss"
+
 export default function Factura() {
   const layout = {
     labelCol: { span: 6 },
@@ -41,6 +43,7 @@ export default function Factura() {
         .required("Ingrese el Nombre de la empresa"),
     }),
     onSubmit: async (formData) => {
+<<<<<<< HEAD
       const result = await signInApi(formData);
     },
   });
@@ -48,6 +51,17 @@ export default function Factura() {
   console.log(auth);
   return (
     <Form {...layout} className="login-form" onFinish={formik.handleSubmit}>
+=======
+      // const result = await signInApi(formData);
+      console.log("He hecho click en submit")
+      }
+  });
+  // const auth = useAuth()
+  // console.log(auth);
+  return (
+    <Form {...layout} className="factura-form" onFinish={formik.handleSubmit}>
+
+>>>>>>> 6bd5e3426596d491f36e8754a33d10f53c0f0c3c
       <h2>Factura</h2>
 
       <Form.Item
