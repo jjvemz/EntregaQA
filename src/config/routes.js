@@ -5,6 +5,7 @@ import LayoutBar from "../layouts/LayoutBar";
 
 // Pages
 import Factura from '../components/Factura/Factura'
+import UserProfile from '../components/UserProfile/UserProfile'
 // import RegisterForm from '../components/RegisterForm/RegisterForm';
 // import LoginForm from '../components/LoginForm/LoginForm';
 
@@ -32,6 +33,11 @@ const routes = [
       {
         path: "/factura",
         component: Factura,
+        exact: true,
+      },
+      {
+        path: "/perfil",
+        component: UserProfile,
         exact: true,
       },
 

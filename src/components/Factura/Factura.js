@@ -8,6 +8,8 @@ import { decodeToken } from "../../api/auth"
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 
+import "./Factura.scss"
+
 export default function Factura() {
   const layout = {
     labelCol: { span: 6 },
@@ -46,10 +48,10 @@ export default function Factura() {
       console.log("He hecho click en submit")
       }
   });
-  const auth = useAuth()
-  console.log(auth);
+  // const auth = useAuth()
+  // console.log(auth);
   return (
-    <Form {...layout} className="login-form" onFinish={formik.handleSubmit}>
+    <Form {...layout} className="factura-form" onFinish={formik.handleSubmit}>
 
       <h2>Factura</h2>
 
