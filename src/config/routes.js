@@ -4,8 +4,10 @@ import LayoutBar from "../layouts/LayoutBar";
 // Admin Pages
 
 // Pages
-import Factura from '../components/Factura/Factura'
-import UserProfile from '../components/UserProfile/UserProfile'
+import Factura from "../components/Factura/Factura";
+import UserProfile from "../components/UserProfile/UserProfile";
+import Sellers from "../components/Sellers/Sellers";
+import Expenses from "../components/Expenses/Expenses";
 // import RegisterForm from '../components/RegisterForm/RegisterForm';
 // import LoginForm from '../components/LoginForm/LoginForm';
 
@@ -40,6 +42,12 @@ const routes = [
         component: UserProfile,
         exact: true,
       },
+      {
+        path: "/vendedores",
+        component: Sellers,
+        exact: true,
+      },
+      { path: "/gastos", component: Expenses, exact: true },
 
       {
         component: Error404,
