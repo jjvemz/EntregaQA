@@ -1,9 +1,11 @@
 // Layout
 import LayoutBar from "../layouts/LayoutBar";
+import LayoutManager from "../layouts/LayoutManager";
 
-// Admin Pages
-
+// manager Pages
+import ManagerHome from "../pages/Manager";
 // Pages
+
 import Factura from "../components/Factura/Factura";
 import UserProfile from "../components/UserProfile/UserProfile";
 import Sellers from "../components/Sellers/Sellers";
@@ -27,6 +29,22 @@ import Error404 from "../pages/Error404";
 // ];
 
 const routes = [
+  {
+    path: "/gerente",
+    component: LayoutManager,
+    exact: false,
+    routes: [
+      {
+        path: "/gerente",
+        component: ManagerHome,
+        exact: true,
+      },
+
+      {
+        component: Error404,
+      },
+    ],
+  },
   {
     path: "/",
     component: LayoutBar,
