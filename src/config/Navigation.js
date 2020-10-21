@@ -1,14 +1,22 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import routes from "./routes";
+import { routes, managerRoutes } from "./routes";
+
+import userAuth from "../hooks/useAuth";
 
 export default function Navigation() {
+  const { auth } = userAuth();
+  const { role } = auth; //revisa que sea vendedor o gerente
   return (
     <Router>
       <Switch>
-        {routes.map((route, index) => (
-          <RouteWithSubRoutes key={index} {...route} />
-        ))}
+        {role === "vendedor"
+          ? routes.map((route, index) => (
+              <RouteWithSubRoutes key={index} {...route} />
+            ))
+          : managerRoutes.map((route, index) => (
+              <RouteWithSubRoutes key={index} {...route} />
+            ))}
       </Switch>
     </Router>
   );
