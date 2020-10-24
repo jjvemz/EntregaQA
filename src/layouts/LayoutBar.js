@@ -20,7 +20,10 @@ export default function LayoutBar(props) {
         className="layout-admin"
         style={{ marginLeft: menuCollapsed ? "80px" : "200px" }}
       >
-        <Header className="layout-admin__header">
+        <Header
+          className="layout-admin__header"
+          style={{ position: "fixed", zIndex: 1, width: "100%" }}
+        >
           <MenuTop
             menuCollapsed={menuCollapsed}
             setMenuCollapsed={setMenuCollapsed}

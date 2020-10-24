@@ -38,7 +38,7 @@ export function deleteBillApi(token, id) {
     });
 }
 
-export function addBillApi(token, course) {
+export function addBillApi(token, bill) {
   const url = `${basePath}/${apiVersion}/add-bill`;
 
   const params = {
@@ -47,7 +47,7 @@ export function addBillApi(token, course) {
       "Content-Type": "application/json",
       Authorization: token,
     },
-    body: JSON.stringify(course),
+    body: JSON.stringify(bill),
   };
 
   return fetch(url, params)

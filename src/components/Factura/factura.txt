@@ -1,0 +1,729 @@
+/* import React from "react";
+import { Form, Input, Button, Space, Select } from "antd";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants";
+import { decodeToken } from "../../api/auth";
+import { addBillApi } from "../../api/bill";
+import useAuth from "../../hooks/useAuth";
+import { toast } from "react-toastify";
+*/
+
+import React from "react";
+import {
+  Form,
+  Input,
+  Button,
+  Space,
+  Select,
+  DatePicker,
+  Divider,
+  Spin,
+} from "antd";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import moment from "moment";
+
+const { Option } = Select;
+const areas = [
+  { label: "Beijing", value: "Beijing" },
+  { label: "Shanghai", value: "Shanghai" },
+];
+
+const sights = {
+  Beijing: ["Tiananmen", "Great Wall"],
+  Shanghai: ["Oriental Pearl", "The Bund"],
+};
+export default function Factura() {
+  const dateFormat = "DD/MM/YYYY";
+  const [form] = Form.useForm();
+
+  const onFinish = (values) => {
+    console.log("Received values of form:", values);
+  };
+
+  const handleChange = () => {
+    form.setFieldsValue({ sights: [] });
+  };
+
+  const config = {
+    rules: [
+      { type: "object", required: true, message: "Favor ingresar fecha" },
+    ],
+  };
+  const prefixSelector = (
+    <Form.Item name="prefix" noStyle>
+      <Select style={{ width: 70 }}>
+        <Option value="56">+56</Option>
+      </Select>
+    </Form.Item>
+  );
+
+  return (
+    <>
+      <Form form={form} name="bill-form" onFinish={onFinish} autoComplete="off">
+        <Form.Item name="date-picker" label="Fecha" {...config}>
+          <DatePicker
+            defaultValue={moment(moment(Date.now()), dateFormat)}
+            format={dateFormat}
+          />
+        </Form.Item>
+        <Form.Item name="nameSoc" label="Nombre sociedad">
+          <Input />
+        </Form.Item>
+        <Form.Item name="rut" label="Rut">
+          <Input />
+        </Form.Item>
+        <Form.Item name="giro" label="Giro">
+          <Input />
+        </Form.Item>
+        <Form.Item name="direction" label="Direccion">
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="telefono"
+          label="Telefono"
+          rules={[{ required: true, message: "ingresar numero de teléfono" }]}
+        >
+          <Input addonBefore={prefixSelector} style={{ width: "100%" }} />
+        </Form.Item>
+        <Form.Item name="Comuna" label="Comuna">
+          <Input />
+        </Form.Item>
+        <Form.Item name="ciudad" label="Ciudad">
+          <Input />
+        </Form.Item>
+        <Form.Item name="pagoMedia" label="Medio de pago">
+          <Input />
+        </Form.Item>
+        <Form.Item name="setPago" label="Forma de pago">
+          <Input />
+        </Form.Item>
+      </Form>
+      <Divider />
+      <Form
+        form={form}
+        name="dynamic_form_nest_item"
+        onFinish={onFinish}
+        autoComplete="off"
+      >
+        <Form.Item
+          name="area"
+          label="Area"
+          rules={[{ required: true, message: "Missing area" }]}
+        >
+          <Select options={areas} onChange={handleChange} />
+        </Form.Item>
+        <Form.List name="sights">
+          {(fields, { add, remove }) => (
+            <>
+              {fields.map((field) => (
+                <Space key={field.key} align="baseline">
+                  <Form.Item
+                    noStyle
+                    shouldUpdate={(prevValues, curValues) =>
+                      prevValues.area !== curValues.area ||
+                      prevValues.sights !== curValues.sights
+                    }
+                  >
+                    {() => (
+                      <Form.Item
+                        {...field}
+                        label="Sight"
+                        name={[field.name, "sight"]}
+                        fieldKey={[field.fieldKey, "sight"]}
+                        rules={[{ required: true, message: "Missing sight" }]}
+                      >
+                        <Select
+                          disabled={!form.getFieldValue("area")}
+                          style={{ width: 130 }}
+                        >
+                          {(sights[form.getFieldValue("area")] || []).map(
+                            (item) => (
+                              <Option key={item} value={item}>
+                                {item}
+                              </Option>
+                            )
+                          )}
+                        </Select>
+                      </Form.Item>
+                    )}
+                  </Form.Item>
+                  <Form.Item
+                    {...field}
+                    label="Price"
+                    name={[field.name, "price"]}
+                    fieldKey={[field.fieldKey, "price"]}
+                    rules={[{ required: true, message: "Missing price" }]}
+                  >
+                    <Input />
+                  </Form.Item>
+
+                  <MinusCircleOutlined onClick={() => remove(field.name)} />
+                </Space>
+              ))}
+
+              <Form.Item>
+                <Button
+                  type="dashed"
+                  onClick={() => add()}
+                  block
+                  icon={<PlusOutlined />}
+                >
+                  Add sights
+                </Button>
+              </Form.Item>
+            </>
+          )}
+        </Form.List>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>{" "}
+    </>
+  );
+}
+
+/*
+import "./Factura.scss";
+
+export default function Factura() {
+  const layout = {
+    labelCol: { span: 6 },
+    wrapperCol: { span: 18 },
+  };
+
+
+
+  const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
+  };
+
+  const { setUser } = useAuth();
+
+  const formik = useFormik({
+    initialValues: {
+      nombreSoc: "",
+      rut: "",
+      giro: "",
+      direccion: "",
+      comuna: "",
+      ciudad: "",
+      telefono: "",
+      medioPago: "",
+      formaPago: "",
+    },
+    validationSchema: Yup.object({
+      nombreSoc: Yup.string()
+        .max(30, "Debe tener 30 caracteres o menos")
+        .required("Ingrese el Nombre"),
+      rut: Yup.number()
+        .max(10, "Debe tener 20 digitos máximo")
+        .required("Ingrese el el rut sin guion y digito verificador"),
+      giro: Yup.number().required("Ingrese el monto de su factura"),
+      direccion: Yup.string()
+        .max(30, "Debe tener 30 caracteres o menos")
+        .required("Ingrese la dirección"),
+      comuna: Yup.string()
+        .max(30, "Debe tener 30 caracteres o menos")
+        .required("Ingrese la ciudad"),
+      ciudad: Yup.string()
+        .required("Ingrese la ciudad"),
+      telefono: Yup.number().required("Ingrese el numero de telefono"),
+      medioPago: Yup.string()
+        .max(20, "Debe tener 20 caracteres o menos")
+        .required("Ingrese el medio de pago"),
+      formaPago: Yup.string()
+        .max(20, "Debe tener 20 caracteres o menos")
+        .required("Ingrese la forma de pago"),
+    }),
+    onSubmit: async (formData) => {
+      try{
+        console.log(formData);
+        const result = await addBillApi(formData);
+        if (!result.ok) {
+          console.log(result.message);
+          console.log(formData);
+          toast.error(result.message)
+        }else{
+          toast.success(result.message)
+          console.log(formData);
+          console.log(result.message);
+        }
+      } catch (error){
+        console.log(formData);
+        console.log(error);
+      }
+    },
+  });
+  const auth = useAuth();
+  console.log(auth);
+  return (
+    <Form {...layout} className="login-form" onFinish={formik.handleSubmit}>
+      <h2>Factura</h2>
+
+      <Form.Item
+        label="Nombre del socio"
+        name="nombreSoc"
+        value={formik.values.nombreSoc}
+        onChange={formik.handleChange}
+        help={formik.errors.nombreSoc}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+      label="rut"
+      name="rut"
+      value={formik.values.rut}
+      onChange={formik.handleChange}
+      help={formik.errors.rut}
+      >
+      <Input />
+      </Form.Item>
+
+      <Form.Item
+      label="Monto de la factura"
+      name="giro"
+      value={formik.values.giro}
+      onChange={formik.handleChange}
+      help={formik.errors.giro}
+      >
+      <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="comuna"
+        name="comuna"
+        value={formik.values.comuna}
+        onChange={formik.handleChange}
+        help={formik.errors.comuna}
+      >
+        <Input />
+      </Form.Item>
+
+
+      <Form.Item
+        label="direccion"
+        name="direccion"
+        value={formik.values.direccion}
+        onChange={formik.handleChange}
+        help={formik.errors.direccion}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="ciudad"
+        name="ciudad"
+        value={formik.values.ciudad}
+        onChange={formik.handleChange}
+        help={formik.errors.ciudad}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="telefono"
+        name="telefono"
+        value={formik.values.telefono}
+        onChange={formik.handleChange}
+        help={formik.errors.telefono}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Medio de pago"
+        name="medioPago"
+        value={formik.values.medioPago}
+        onChange={formik.handleChange}
+        help={formik.errors.medioPago}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Forma de pago"
+        name="formaPago"
+        value={formik.values.formaPago}
+        onChange={formik.handleChange}
+        help={formik.errors.formaPago}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item name="punitary" label="punitary" rules={[{ required: true, message: 'Missing punitary' }]}>
+        <Select options={areas} onChange={handleChange} />
+      </Form.Item>
+
+      <Form.Item
+        {...field}
+        label="detail"
+        name={[field.name, 'detail']}
+        fieldKey={[field.fieldKey, 'detail']}
+        rules={[{ required: true, message: 'Faltan detalles' }]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.List name="sights">
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(field => (
+              <Space key={field.key} align="baseline">
+                <Form.Item
+                  noStyle
+                  shouldUpdate={(prevValues, curValues) =>
+                    prevValues.area !== curValues.area || prevValues.sights !== curValues.sights
+                  }
+                >
+                  {() => (
+                    <Form.Item
+                      {...field}
+                      label="Sight"
+                      name={[field.name, 'sight']}
+                      fieldKey={[field.fieldKey, 'sight']}
+                      rules={[{ required: true, message: 'Missing sight' }]}
+                    >
+                </Form.Item>
+                <Form.Item
+                  {...field}
+                  label="cant"
+                  name={[field.name, 'cant']}
+                  fieldKey={[field.fieldKey, 'cant']}
+                  rules={[{ required: true, message: 'Falta la cantidad' }]}
+                >
+                  <Input />
+                </Form.Item>
+
+                <MinusCircleOutlined onClick={() => remove(field.name)} />
+              </Space>
+            ))}
+
+            <Form.Item>
+              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                Add sights
+              </Button>
+            </Form.Item>
+          </>
+        )}
+      </Form.List>
+
+      <Form.Item {...tailLayout}>
+        <Button type="primary" htmlType="submit">
+          Ingresar datos
+        </Button>
+      </Form.Item>
+    </Form>
+  );
+}
+
+
+
+/*
+
+import React from "react";
+import {
+  Form,
+  Input,
+  Button,
+  Space,
+  Select,
+  DatePicker,
+  Divider,
+  Spin,
+} from "antd";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import moment from "moment";
+
+const { Option } = Select;
+const areas = [
+  { label: "Beijing", value: "Beijing" },
+  { label: "Shanghai", value: "Shanghai" },
+];
+
+const sights = {
+  Beijing: ["Tiananmen", "Great Wall"],
+  Shanghai: ["Oriental Pearl", "The Bund"],
+};
+export default function Factura() {
+  const dateFormat = "DD/MM/YYYY";
+  const [form] = Form.useForm();
+
+  const onFinish = (values) => {
+    console.log("Received values of form:", values);
+  };
+
+  const handleChange = () => {
+    form.setFieldsValue({ sights: [] });
+  };
+
+  const config = {
+    rules: [
+      { type: "object", required: true, message: "Favor ingresar fecha" },
+    ],
+  };
+  const prefixSelector = (
+    <Form.Item name="prefix" noStyle>
+      <Select style={{ width: 70 }}>
+        <Option value="56">+56</Option>
+      </Select>
+    </Form.Item>
+  );
+
+  return (
+    <>
+      <Form form={form} name="bill-form" onFinish={onFinish} autoComplete="off">
+        <Form.Item name="date-picker" label="Fecha" {...config}>
+          <DatePicker
+            defaultValue={moment(moment(Date.now()), dateFormat)}
+            format={dateFormat}
+          />
+        </Form.Item>
+        <Form.Item name="nameSoc" label="Nombre sociedad">
+          <Input />
+        </Form.Item>
+        <Form.Item name="rut" label="Rut">
+          <Input />
+        </Form.Item>
+        <Form.Item name="giro" label="Giro">
+          <Input />
+        </Form.Item>
+        <Form.Item name="direction" label="Direccion">
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="telefono"
+          label="Telefono"
+          rules={[{ required: true, message: "ingresar numero de teléfono" }]}
+        >
+          <Input addonBefore={prefixSelector} style={{ width: "100%" }} />
+        </Form.Item>
+        <Form.Item name="Comuna" label="Comuna">
+          <Input />
+        </Form.Item>
+        <Form.Item name="ciudad" label="Ciudad">
+          <Input />
+        </Form.Item>
+        <Form.Item name="pagoMedia" label="Medio de pago">
+          <Input />
+        </Form.Item>
+        <Form.Item name="setPago" label="Forma de pago">
+          <Input />
+        </Form.Item>
+      </Form>
+      <Divider />
+      <Form
+        form={form}
+        name="dynamic_form_nest_item"
+        onFinish={onFinish}
+        autoComplete="off"
+      >
+        <Form.Item
+          name="area"
+          label="Area"
+          rules={[{ required: true, message: "Missing area" }]}
+        >
+          <Select options={areas} onChange={handleChange} />
+        </Form.Item>
+        <Form.List name="sights">
+          {(fields, { add, remove }) => (
+            <>
+              {fields.map((field) => (
+                <Space key={field.key} align="baseline">
+                  <Form.Item
+                    noStyle
+                    shouldUpdate={(prevValues, curValues) =>
+                      prevValues.area !== curValues.area ||
+                      prevValues.sights !== curValues.sights
+                    }
+                  >
+                    {() => (
+                      <Form.Item
+                        {...field}
+                        label="Sight"
+                        name={[field.name, "sight"]}
+                        fieldKey={[field.fieldKey, "sight"]}
+                        rules={[{ required: true, message: "Missing sight" }]}
+                      >
+                        <Select
+                          disabled={!form.getFieldValue("area")}
+                          style={{ width: 130 }}
+                        >
+                          {(sights[form.getFieldValue("area")] || []).map(
+                            (item) => (
+                              <Option key={item} value={item}>
+                                {item}
+                              </Option>
+                            )
+                          )}
+                        </Select>
+                      </Form.Item>
+                    )}
+                  </Form.Item>
+                  <Form.Item
+                    {...field}
+                    label="Price"
+                    name={[field.name, "price"]}
+                    fieldKey={[field.fieldKey, "price"]}
+                    rules={[{ required: true, message: "Missing price" }]}
+                  >
+                    <Input />
+                  </Form.Item>
+
+                  <MinusCircleOutlined onClick={() => remove(field.name)} />
+                </Space>
+              ))}
+
+              <Form.Item>
+                <Button
+                  type="dashed"
+                  onClick={() => add()}
+                  block
+                  icon={<PlusOutlined />}
+                >
+                  Add sights
+                </Button>
+              </Form.Item>
+            </>
+          )}
+        </Form.List>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>{" "}
+    </>
+  );
+}
+
+
+
+fecha: { type: Date, default: Date.now },
+  nombreSoc: String,
+  rut: String,
+  giro: String,
+  direccion: String,
+  comuna: String,
+  ciudad: String,
+  telefono: String,
+  medioPago: String,
+  formaPago: String,
+  data: [
+    {
+      cant: Number,
+      detail: String,
+      punitary: Number,
+    },
+  ], 
+
+
+
+
+import React from "react";
+import { Form, Input, Button, Space, Select } from "antd";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants";
+import { signInApi } from "../../api/user";
+import { decodeToken } from "../../api/auth";
+import useAuth from "../../hooks/useAuth";
+import { toast } from "react-toastify";
+
+import "./Factura.scss";
+
+export default function Factura() {
+  const layout = {
+    labelCol: { span: 6 },
+    wrapperCol: { span: 18 },
+  };
+
+  const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
+  };
+
+  const { setUser } = useAuth();
+
+  const formik = useFormik({
+    initialValues: {
+      UserName: "",
+      EnterpriseName: "",
+      TypeOfBill: "",
+      MountOfBill: "",
+      Rut: "",
+    },
+    validationSchema: Yup.object({
+      UserName: Yup.string()
+        .max(30, "Debe tener 30 caracteres o menos")
+        .required("Ingrese el Nombre"),
+      EnterpriseName: Yup.string()
+        .max(20, "Debe tener 20 caracteres o menos")
+        .required("Ingrese el Nombre de la empresa"),
+      MountOfBill: Yup.number().required("Ingrese el monto de su factura"),
+      TypeOfBill: Yup.string()
+        .max(20, "Debe tener 20 caracteres o menos")
+        .required("Ingrese el Nombre de la empresa"),
+    }),
+    onSubmit: async (formData) => {
+      const result = await signInApi(formData);
+    },
+  });
+  const auth = useAuth();
+  console.log(auth);
+  return (
+    <Form {...layout} className="login-form" onFinish={formik.handleSubmit}>
+      <h2>Factura</h2>
+
+      <Form.Item
+        label="Nombre del usuario"
+        name="email"
+        value={formik.values.email}
+        onChange={formik.handleChange}
+        help={formik.errors.email}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="Nombre de la empresa"
+        name="EnterpriseName"
+        value={formik.values.password}
+        onChange={formik.handleChange}
+        help={formik.errors.password}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Tipo de factura"
+        name="TypeOfBill"
+        value={formik.values.password}
+        onChange={formik.handleChange}
+        help={formik.errors.password}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Monto de la factura"
+        name="MountOfBill"
+        value={formik.values.password}
+        onChange={formik.handleChange}
+        help={formik.errors.password}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item {...tailLayout}>
+        <Button type="primary" htmlType="submit">
+          Ingresar datos
+        </Button>
+      </Form.Item>
+    </Form>
+  );
+}
+*/

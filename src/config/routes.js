@@ -4,6 +4,7 @@ import LayoutBar from "../layouts/LayoutBar";
 // Pages
 
 import Factura from "../components/Factura/Factura";
+import Billexample from "../components/Factura/BillExample";
 import UserProfile from "../components/UserProfile/UserProfile";
 
 import Expenses from "../components/Expenses/Expenses";
@@ -35,6 +36,7 @@ const routes = [
         component: UserProfile,
         exact: true,
       },
+      { path: "/ejemplo", component: Billexample, exact: true },
 
       { path: "/gastos", component: Expenses, exact: true },
 
