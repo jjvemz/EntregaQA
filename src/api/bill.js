@@ -49,7 +49,7 @@ export function addBillApi(token, bill) {
     },
     body: JSON.stringify(bill),
   };
-
+  console.log(params);
   return fetch(url, params)
     .then((response) => {
       return response.json();
