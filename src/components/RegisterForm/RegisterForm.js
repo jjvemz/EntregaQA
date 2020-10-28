@@ -39,15 +39,17 @@ export default function RegisterForm(props) {
           /^\d{1,2}\d{3}\d{3}[0-9kK]{1}$/,
           "Ingrese el rut sin puntos ni guion"
         )
-        .required("Ingrese el rut sin puntos ni guion"),
+        .required("El rut es obligatorio, ingresar sin puntos ni guion"),
       email: Yup.string()
         .email("El email no es valido")
         .required("El email es obligatorio"),
       password: Yup.string()
         .required("La contraseña es obligatoria")
+        .min(6, "La contraseña debe ser superior a 6 caracteres")
         .oneOf([Yup.ref("repeatPassword")], "Las contraseñas no coinciden"),
       repeatPassword: Yup.string()
         .required("La contraseña es obligatoria")
+        .min(6, "La contraseña debe ser superior a 6 caracteres")
         .oneOf([Yup.ref("password")], "Las contraseñas no coinciden"),
     }),
     onSubmit: async (formData) => {
