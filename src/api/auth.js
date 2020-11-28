@@ -48,7 +48,7 @@ export function refreshAccessTokenApi(refreshToken) {
     })
     .then((result) => {
       if (!result) {
-        logout();
+        removeToken();
       } else {
         const { accessToken, refreshToken } = result;
         localStorage.setItem(ACCESS_TOKEN, accessToken);
@@ -57,7 +57,7 @@ export function refreshAccessTokenApi(refreshToken) {
     });
 }
 
-export function logout() {
+export function removeToken() {
   localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem(REFRESH_TOKEN);
 }

@@ -6,8 +6,9 @@ import LayoutBar from "../layouts/LayoutBar";
 import Factura from "../components/Factura/Factura";
 
 import UserProfile from "../components/UserProfile/UserProfile";
-import Sellers from "../components/Sellers/Sellers";
 import Expenses from "../components/Expenses/Expenses";
+import Users from "../pages/Users/Users";
+
 // import RegisterForm from '../components/RegisterForm/RegisterForm';
 // import LoginForm from '../components/LoginForm/LoginForm';
 
@@ -70,7 +71,7 @@ const managerRoutes = [
       },
 
       { path: "/gastos", component: Expenses, exact: true },
-      { path: "/vendedores", component: Sellers, exact: true },
+      { path: "/vendedores", component: Users, exact: true },
 
       {
         component: Error404,

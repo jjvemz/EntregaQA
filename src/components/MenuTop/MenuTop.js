@@ -1,5 +1,5 @@
 import React from "react";
-import { logout } from "../../api/auth";
+import { removeToken } from "../../api/auth";
 import CatcakeLogo from "../../assets/layoutLogo.png";
 import { Button } from "antd";
 import { Link } from "react-router-dom";
@@ -14,7 +14,7 @@ export default function MenuTop(props) {
   const { menuCollapsed, setMenuCollapsed } = props;
 
   const logoutUser = () => {
-    logout();
+    removeToken();
     window.location.reload();
   };
 

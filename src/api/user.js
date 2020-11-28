@@ -121,3 +121,51 @@ export function updateUserApi(token, user, userId) {
       return err.message;
     });
 }
+
+export function getUsersActiveApi(token, status) {
+  const url = `${basePath}/${apiVersion}/users-active?active=${status}`;
+
+  const params = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  };
+
+  return fetch(url, params)
+    .then((response) => {
+      return response.json();
+    })
+    .then((result) => {
+      return result;
+    })
+    .catch((err) => {
+      return err.message;
+    });
+}
+
+export function signUpApiManager(token, data) {
+  console.log(data);
+  const url = `${basePath}/${apiVersion}/sign-up-manager`;
+
+  const params = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+    body: JSON.stringify(data),
+  };
+
+  return fetch(url, params)
+    .then((response) => {
+      return response.json();
+    })
+    .then((result) => {
+      return result.message;
+    })
+    .catch((err) => {
+      return err.message;
+    });
+}

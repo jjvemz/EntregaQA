@@ -1,18 +1,19 @@
 import React from "react";
 import userAuth from "../../hooks/useAuth";
+import { Card } from "antd";
 
 export default function UserProfile() {
   const { auth } = userAuth();
   const { name, lastname, rut, email, role } = auth;
   console.log(auth);
   return (
-    <div>
-      <div>
+    <Card title="Perfil" style={{ width: 300 }}>
+      <p>
         Nombre: {name} {lastname}
-      </div>
-      <div>Rut: {rut}</div>
-      <div>Correo electronico: {email}</div>
-      <div>cargo: {role}</div>
-    </div>
+      </p>
+      <p>Rut: {rut}</p>
+      <p>Correo electronico: {email}</p>
+      <p>cargo: {role}</p>
+    </Card>
   );
 }

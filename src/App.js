@@ -1,37 +1,37 @@
-import React, {useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { ToastContainer } from "react-toastify";
 import Auth from "./pages/Auth/Auth";
 import Navigation from "./config/Navigation";
-import { getAccessTokenApi, decodeToken } from "./api/auth";
+import { getAccessTokenApi, decodeToken, removeToken } from "./api/auth";
 import AuthContext from "./context/AuthContext";
 import "./App.scss";
 
 function App() {
-
   const [auth, setAuth] = useState(undefined);
 
   useEffect(() => {
-    const token = getAccessTokenApi()
-    if(!token) {
+    const token = getAccessTokenApi();
+    if (!token) {
       setAuth(null);
     } else {
-      setAuth(decodeToken(token))
+      setAuth(decodeToken(token));
     }
-  }, [])
+  }, []);
 
   const logout = () => {
-    console.log("Cerrar sesion");
+    removeToken();
+    setAuth(null);
   };
 
   const setUser = (user) => {
-    setAuth(user)
+    setAuth(user);
   };
 
   const authData = useMemo(
     () => ({
       auth,
       logout,
-      setUser
+      setUser,
     }),
     [auth]
   );
@@ -57,7 +57,6 @@ function App() {
         />
       </AuthContext.Provider>
     </>
-
   );
 }
 
