@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Switch, List, Button, Modal as ModalAntd, notification } from "antd";
+import { Switch, List, Button, notification } from "antd";
 import { StopOutlined, EditOutlined, CheckOutlined } from "@ant-design/icons";
 //import NoAvatar from "../../../../assets/img/png/no-avatar.png";
 import Modal from "../Modal/Modal";
@@ -7,8 +7,6 @@ import EditUserForm from "./EditUserForm";
 import AddUserForm from "./AddUserForm";
 import { activateUserApi } from "../../api/user";
 import { getAccessTokenApi } from "../../api/auth";
-
-const { confirm } = ModalAntd;
 
 export default function ListUsers(props) {
   const { usersActive, usersInactive, setReloadUsers } = props;

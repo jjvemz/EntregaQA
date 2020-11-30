@@ -31,17 +31,24 @@ export default function MenuSider(props) {
             <span className="nav-text">Facturas</span>
           </Link>
         </Menu.Item>
+        <Menu.Item key="3" style={{ marginTop: 10 }}>
+          <Link to="/mis-facturas">
+            <FileTextOutlined />
+            <span className="nav-text">mis facturas</span>
+          </Link>
+        </Menu.Item>
+
         {role === "vendedor" ? (
           <></>
         ) : (
           <>
-            <Menu.Item key="3">
+            <Menu.Item key="4">
               <Link to="/gastos">
                 <RiseOutlined />
                 <span className="nav-text">Gastos</span>
               </Link>
             </Menu.Item>
-            <Menu.Item key="4">
+            <Menu.Item key="5">
               <Link to="/vendedores">
                 <UserAddOutlined />
                 <span className="nav-text">Vendedores</span>

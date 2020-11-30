@@ -8,7 +8,7 @@ import Factura from "../components/Factura/Factura";
 import UserProfile from "../components/UserProfile/UserProfile";
 import Expenses from "../components/Expenses/Expenses";
 import Users from "../pages/Users/Users";
-
+import Bills from "../pages/Bills/Bills";
 // import RegisterForm from '../components/RegisterForm/RegisterForm';
 // import LoginForm from '../components/LoginForm/LoginForm';
 
@@ -72,6 +72,7 @@ const managerRoutes = [
 
       { path: "/gastos", component: Expenses, exact: true },
       { path: "/vendedores", component: Users, exact: true },
+      { path: "/mis-facturas", component: Bills, exact: true },
 
       {
         component: Error404,
